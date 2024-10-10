@@ -1,29 +1,36 @@
+# azure-pipelines.yml
 trigger:
   branches:
     include:
-      - main  # Dispara o pipeline em cada push na branch main
+      - '*'  # Executa o pipeline em todos os branches, pode ser ajustado para 'main' ou outro branch específico.
 
 pool:
-  vmImage: 'ubuntu-latest'  # Utiliza uma VM com Ubuntu
+  vmImage: 'ubuntu-latest'  # Define a VM que será usada para execução
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'  # Arquivo de configuração do Maven
-    goals: 'clean install'   # Limpa e instala dependências do projeto
+  # Passo para realizar o checkout do código do GitHub
+  - checkout: self
 
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'test'            # Roda os testes automatizados
+  # Instala o JDK 11 (pode ser ajustado conforme necessário)
+  - task: UseJavaVersion@1
+    inputs:
+      versionSpec: '11'  # Use a versão do JDK que seu projeto exige
+      jdkArchitectureOption: 'x64'
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    testRunTitle: 'Test Results'  # Publica os resultados dos testes
+  # Tarefa de build usando Maven
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'  # Local do arquivo POM no projeto
+      goals: 'clean install'   # Comandos Maven para compilar e rodar os testes
+      options: '-B'            # Batch mode para menos mensagens interativas
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'  # Relatórios de testes
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'  # Diretório de saída
-    artifactName: 'drop'
-    publishLocation: 'Pipeline'
+  # Relatório de cobertura de código com JaCoCo (para Maven)
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'JaCoCo'  # Usa JaCoCo para cobertura de código
+      summaryFileLocation: 'target/site/jacoco/jacoco.xml'
+      reportDirectory: 'target/site/jacoco'
+      failIfCoverageEmpty: true   # Falha se a cobertura estiver vazia
+
