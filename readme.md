@@ -1,89 +1,204 @@
 # SafeColeta
 
-SafeColeta é um serviço RESTful para gerenciamento de caminhões de coleta de lixo inteligente. Este projeto utiliza Spring Boot para criar a aplicação e PostgreSQL como banco de dados.
+SAFE-COLETA é uma API RESTful para o gerenciamento de coleta de resíduos, incluindo o cadastro e consulta de caminhões, moradores, notificações e agendamentos de coleta. A aplicação utiliza Spring Boot e MySQL para armazenamento de dados.
 
-## Requisitos
+## Índice
 
-- Docker
-- Docker Compose
-- Java 17
-- Maven
+- Visão Geral do Deploy
+- Tecnologias Utilizadas
+- Instalação
+- Configuração
+- Testes
+- [Postman] Endpoints da API no servidor Azure & Local
+- Testes dos endpoints
 
-## Estrutura do Projeto
+# Visão Geral do Deploy
 
-- `src/main/java`: Código-fonte Java
-- `src/main/resources`: Recursos da aplicação (arquivos de configuração)
-- `target`: Diretório onde o JAR compilado será gerado
-- `pom.xml`: Arquivo de configuração do Maven
-- `Dockerfile`: Arquivo de configuração do Docker para a aplicação
-- `docker-compose.yml`: Arquivo de configuração do Docker Compose para gerenciar contêineres
+Atualmente, o projeto está em deploy no Azure com um banco de dados MySQL dedicado, portanto, ele não depende do container MySQL criado no Docker Compose (descrito abaixo), que serve apenas como uma alternativa para executar o projeto localmente.
 
-## Configuração do Ambiente
-
-### Compilando a Aplicação
-
-1. Faça login no Docker Hub:
+A URL base da API em produção é:
    ```sh
-   docker login
+   https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net
    ```
+Para acessar os endpoints, basta adicionar o caminho do endpoint ao final desta URL.
 
-3. Testes:
-   ```sh
-   mvnw test
-   ```
+# Tecnologias Utilizadas
 
-2. Puxe a imagem do Docker Hub:
-   ```sh
-   docker pull amandasacchi22k736/app:welcome-21-alpine
-   ```
+- Java 17: Linguagem de programação principal.
+- Spring Boot: Framework para criação de aplicações REST.
+- Maven.
+- MySQL: Banco de dados relacional.
+- Docker & Docker Compose: Gerenciamento de containers.
+- JUnit 5 & Mockito: Testes unitários.
+- Swagger (Springdoc OpenAPI): Documentação interativa da API.
+- Azure App Service.
+- Azure Database for MySQL.
+- GitHub Actions.
 
-3. Crie a rede Docker (se ainda não existir):
-   ```sh
-   docker network create safecoleta-network
-   ```
+# Instalação
 
-4. Inicie o contêiner Oracle XE na rede safecoleta-network:
-   ```sh
-   docker run --name oracle-xe --network safecoleta-network -d -p 1521:1521 -p 5500:5500 gvenzl/oracle-xe
-   ```
+1. Clone o repositório:
+```sh
 
-5. Inicie a aplicação na rede safecoleta-network:
-   ```sh
-   docker run --name safecoleta-app --network safecoleta-network -d -p 8080:8080 \
-   -e SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle-xe:1521/xepdb1 \
-   -e SPRING_DATASOURCE_USERNAME=system \
-   -e SPRING_DATASOURCE_PASSWORD=senha_segura \
-   -e SPRING_DATASOURCE_DRIVER-CLASS-NAME=oracle.jdbc.OracleDriver \
-   amandasacchi22k736/app:welcome-21-alpine
-   ```
+git clone https://github.com/viniciuslopes98/SAFE-COLETA.git cd
+SAFE-COLETA
 
-## Configurações do Banco de Dados
-
-As configurações do banco de dados são definidas no arquivo `docker-compose.yml`:
-
-```yaml
-environment:
-  SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mydb
-  SPRING_DATASOURCE_USERNAME: user
-  SPRING_DATASOURCE_PASSWORD: password
 ```
 
-Certifique-se de que as credenciais do banco de dados correspondam às configurações da sua aplicação Spring Boot.
-
-## Endpoints da API
-
-Abaixo estão alguns dos principais endpoints disponíveis na aplicação:
-
-- `GET /api/caminhoes`: Lista todos os caminhões de coleta
-- `POST /api/caminhoes`: Adiciona um novo caminhão de coleta
-- `GET /api/coletas`: Lista todas as coletas agendadas
-- `POST /api/coletas`: Agenda uma nova coleta
+2. Certifique-se de ter o Docker e Docker Compose instalados.
 
 
-## Testando a Aplicação
+# Configuração
+Configuração de Variáveis de Ambiente
+Para executar o projeto localmente, configure as variáveis de ambiente necessárias no arquivo `application-dev.properties` e `docker-compose.yml`.
 
-Você pode testar a aplicação usando ferramentas como Postman ou qualquer cliente HTTP de sua preferência. Para facilitar, um arquivo de coleção do Postman (`SafeColeta.postman_collection.json`) está incluído no projeto.
 
-## Contribuindo
+Edite o arquivo `application-dev.properties` localizado em `src/main/resources/application-dev.properties` para incluir as variáveis de ambiente de conexão com o banco de dados:
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
+```
+server.port=8080
+spring.datasource.url=${DATABASE_URL}
+spring.datasource.username=${DATABASE_USER}
+spring.datasource.password=${DATABASE_PWD}
+spring.jpa.show-sql=true
+spring.jpa.open-in-view=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=create
+spring.sql.init.mode=always
+
+```
+
+Configure o banco de dados MySQL no `docker-compose.yml` (apenas para execução local):
+```
+services:
+  db:
+    image: mysql:8.0
+    container_name: safecoleta_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pass
+      - MYSQL_DATABASE=safecoleta
+    ports:
+      - "3306:3306"
+
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PROFILE=dev
+      - DATABASE_URL=jdbc:mysql://db:3306/safecoleta?createDatabaseIfNotExist=true
+      - DATABASE_USER=root
+      - DATABASE_PWD=root_pass
+
+```
+
+
+## Executando o Projeto Local
+
+### Usando Docker Compose
+1. No diretório raiz do projeto, inicie os containers:
+```sh
+
+docker-compose up --build
+
+```
+2. Acesse a aplicação em http://localhost:8080.
+
+# Testes
+
+### Para executar os testes unitários:
+
+```sh
+
+mvn test
+
+```
+
+# Endpoints da API no servidor Azure
+Base URL da API: 
+```sh
+
+https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net
+
+```
+
+## Testes de API com Postman
+
+Utilize o Postman para testar os endpoints da API. Um arquivo de coleção do Postman `SafeColeta.postman_collection.json` está incluído no projeto.
+
+![image](https://github.com/user-attachments/assets/0fd26e58-8e22-4e09-ba27-42f22ccbbb3b)
+
+
+### ATENÇÃO: ``  Para testar local basta substituir a URL base por http://localhost:8080   ``
+
+
+## Caminhão
+- POST Cadastrar um novo caminhão `/api/caminhao/cadastro`:
+   
+   - Body:
+
+```sh
+    {
+     "placa": "DUR4534",
+     "motorista": "Lucas Marques",
+     "status": "ativo",
+     "ultimaAtualizacao": "2024-05-23T12:32:00"
+   }
+```
+- GET Consultar caminhão por ID `/api/caminhao/id/{id}`
+
+
+## Morador
+- POST Cadastrar um novo morador `/api/morador/cadastro`:
+   
+   - Body:
+
+```sh
+{
+  "nome": "Ana Maria",
+  "email": "ana.maria@gmail.com"
+}
+
+```
+- GET Consultar morador por ID `/api/morador/id/{id}`
+
+## Notificação
+IMPORTANTE: Para cadastrar uma notificação, é necessário que um morador já exista.
+- POST Cadastrar uma nova notificação `/api/notificacao/cadastro`:
+ 
+   - Body:
+
+```sh
+{
+  "moradorId": 1,
+  "mensagem": "Boa tarde, prezado(a) morador(a). Agradecemos por sua paciência, sua solicitação foi confirmada. A coleta será feita no dia 24/05/2024 às 14:00 horas. Qualquer dúvida entre em contato com nossa central. Obrigado por contar conosco!",
+  "dataNotificacao": "2024-05-24T14:30:00",
+  "lida": true
+}
+
+
+```
+- GET Consultar notificação por ID `/api/notificacao/id/{id}`
+
+## Agendamento de Coleta
+IMPORTANTE: Para cadastrar um agendamento, é necessário que um caminhão já exista.
+- POST Cadastrar um novo agendamento de coleta `/api/agendamento/cadastro`:
+ 
+   - Body:
+
+```sh
+{
+  "caminhaoId": 1,
+  "tipoResiduos": "Comum",
+  "dataAgendamento": "2024-06-22",
+  "horario": "14:30",
+  "endereco": "Av. Costa Eduardo, 267 SAO PAULO-SP",
+  "confirmado": true
+}
+
+```
+- GET Consultar agendamento por ID `/api/agendamento/id/{id}`
+- GET Listar todos os agendamentos `/api/agendamento/agendamentos`
+- DELETE Excluir agendamento por ID `/api/agendamento/id/{id}`
+- PUT Atualizar agendamento por ID `/api/agendamento/id/{id}`
+
