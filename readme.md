@@ -124,7 +124,7 @@ https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net
 
 ## Testes de API com Postman
 
-Utilize o Postman para testar os endpoints da API. Um arquivo de coleção do Postman `SafeColeta.postman_collection.json` está incluído no projeto.
+Utilize o Postman para testar os endpoints da API. Um arquivo de coleção do Postman `SafeColetaDevops_collection.json` está incluído no projeto em `\src\main\java\br\com\fiap\safecoleta\collection\SafeColetaDevops_collection`.
 
 ![image](https://github.com/user-attachments/assets/0fd26e58-8e22-4e09-ba27-42f22ccbbb3b)
 
