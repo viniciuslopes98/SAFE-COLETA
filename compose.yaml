@@ -14,5 +14,5 @@ services:
     environment:
       - PROFILE=dev
       - DATABASE_URL=jdbc:mysql://bd-fiap-safecoleta-dev.mysql.database.azure.com:3306/api?createDatabaseIfNotExist=true
-      - DATABASE_USER=root
-      - DATABASE_PWD=root_pass
+      - DATABASE_USER=vinicius
+      - DATABASE_PWD=Rootroot#*
