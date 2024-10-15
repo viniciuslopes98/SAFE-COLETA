@@ -4,7 +4,6 @@ import static org.mockito.Mockito.*;  // Import para os métodos Mockito
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;  // Métodos de requisição MockMvc
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;  // Métodos de verificação de resposta MockMvc
 
- // Serviço usado no Controller
 import br.com.fiap.safecoleta.dto.AtualizarAgendamentoDTO;
 import br.com.fiap.safecoleta.dto.CadastrarAgendamentoDTO;
 import br.com.fiap.safecoleta.model.AgendamentoColeta;
