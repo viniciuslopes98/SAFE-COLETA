@@ -35,7 +35,7 @@ public class AgendamentoColetaService {
         Caminhao retornoObjeto = repositoryCaminhao.getById(cadastrarAgendamentoDTO.getCaminhaoId());
         return repository.save(
                 AgendamentoColeta.builder()
-                        .dataAgendamento(cadastrarAgendamentoDTO.getDataEnvio())
+                        .dataAgendamento(cadastrarAgendamentoDTO.getDataAgendamento())
                         .tipoResiduos(cadastrarAgendamentoDTO.getTipoResiduos())
                         .horario(cadastrarAgendamentoDTO.getHorario())
                         .endereco(cadastrarAgendamentoDTO.getEndereco())

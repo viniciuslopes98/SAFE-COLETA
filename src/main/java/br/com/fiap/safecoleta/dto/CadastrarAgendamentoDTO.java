@@ -21,7 +21,7 @@ public class CadastrarAgendamentoDTO {
     private String tipoResiduos;
 
     @NotNull(message = "A data não pode ser nula!")
-    private LocalDate dataEnvio;
+    private LocalDate dataAgendamento;
 
     @NotBlank(message = "O horário do Agendamento não pode ser nulo!")
     private String horario;

@@ -6,7 +6,7 @@ SafeColeta é um serviço RESTful para gerenciamento de caminhões de coleta de 
 
 - Docker
 - Docker Compose
-- Java 11
+- Java 17
 - Maven
 
 ## Estrutura do Projeto
@@ -25,6 +25,11 @@ SafeColeta é um serviço RESTful para gerenciamento de caminhões de coleta de 
 1. Faça login no Docker Hub:
    ```sh
    docker login
+   ```
+
+3. Testes:
+   ```sh
+   mvnw test
    ```
 
 2. Puxe a imagem do Docker Hub:
@@ -74,9 +79,6 @@ Abaixo estão alguns dos principais endpoints disponíveis na aplicação:
 - `GET /api/coletas`: Lista todas as coletas agendadas
 - `POST /api/coletas`: Agenda uma nova coleta
 
-## Segurança
-
-O projeto inclui uma configuração de segurança básica utilizando Spring Security. As configurações de segurança podem ser encontradas no pacote `br.com.fiap.safecoleta.config.security`.
 
 ## Testando a Aplicação
 

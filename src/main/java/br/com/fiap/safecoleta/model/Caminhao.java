@@ -14,20 +14,16 @@ import java.time.LocalDateTime;
 public class Caminhao {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "CAMINHAO_SEQ"
-    )
-    @SequenceGenerator(
-            name = "CAMINHAO_SEQ",
-            sequenceName = "CAMINHAO_SEQ",
-            allocationSize = 1
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "placa", nullable = false)
     private String placa;
+
     private String motorista;
+
     private String status;
+
     @Column(name = "ultima_atualizacao")
     private LocalDateTime ultimaAtualizacao;
 

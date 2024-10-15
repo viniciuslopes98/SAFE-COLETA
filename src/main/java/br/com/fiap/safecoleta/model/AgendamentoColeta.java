@@ -16,15 +16,7 @@ import java.time.LocalDate;
 public class AgendamentoColeta {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "AGENDAMENTO_SEQ"
-    )
-    @SequenceGenerator(
-            name = "AGENDAMENTO_SEQ",
-            sequenceName = "AGENDAMENTO_SEQ",
-            allocationSize = 1
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -32,7 +24,7 @@ public class AgendamentoColeta {
 
     private String tipoResiduos;
 
-    @Column(name = "data_agendamento")
+
     private LocalDate dataAgendamento;
 
     private String horario;

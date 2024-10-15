@@ -15,15 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class Morador {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "MORADOR_SEQ"
-    )
-    @SequenceGenerator(
-            name = "MORADOR_SEQ",
-            sequenceName = "MORADOR_SEQ",
-            allocationSize = 1
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
