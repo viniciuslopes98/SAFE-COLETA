@@ -1,0 +1,418 @@
+{
+	"info": {
+		"_postman_id": "247c9153-ab18-4a0e-9df5-f51727336ecd",
+		"name": "SafeColeta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24490785"
+	},
+	"item": [
+		{
+			"name": "Agendamento Coleta",
+			"item": [
+				{
+					"name": "Cadastro de Agendamento",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caminhaoId\":1,\r\n    \"tipoResiduos\": \"Comum\",\r\n    \"dataAgendamento\": \"2024-06-22\",\r\n    \"horario\": \"14:30\",\r\n    \"endereco\": \"Av. Costa Eduardo, 267 SAO PAULO-SP\",\r\n    \"confirmado\": true\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/agendamento/cadastro",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"agendamento",
+								"cadastro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Agendamento por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/agendamento/id/1",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"agendamento",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Agendamentos por Pagina",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/agendamento/agendamentos?sort=id&size=3&page=1",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"agendamento",
+								"agendamentos"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "id"
+								},
+								{
+									"key": "size",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Agendamento por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/agendamento/id/14",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"agendamento",
+								"id",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar um Agendamento",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoResiduos\": \"-TESTE-ATT\",\r\n    \"dataAgendamento\": \"2024-06-01\",\r\n    \"horario\": \"14:00\",\r\n    \"endereco\": \"Nova Rua, 123TESTE\",\r\n    \"confirmado\": true,\r\n    \"caminhaoId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/agendamento/id/2",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"agendamento",
+								"id",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Caminhão",
+			"item": [
+				{
+					"name": "Cadastro de Caminhão",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"placa\": \"DUR4534\",\r\n  \"motorista\": \"Lucas Marques\",\r\n  \"status\": \"ativo\",\r\n  \"ultimaAtualizacao\": \"2024-05-23T12:32:00\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/caminhao/cadastro",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"caminhao",
+								"cadastro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Caminhão por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/caminhao/id/1",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"caminhao",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Morador",
+			"item": [
+				{
+					"name": "Cadastro de Morador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"nome\":\"Ana Maria\",\r\n\"email\":\"ana.maria@ggmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/morador/cadastro",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"morador",
+								"cadastro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Morador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/morador/id/1",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"morador",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notificação",
+			"item": [
+				{
+					"name": "Cadastro de Notificação",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"moradorId\":1,\r\n\"mensagem\":\"Boa tarde, prezado(a) morador(a). Agradecemos por sua paciência, sua solicitação foi confirmada. A coleta será feita no dia 24/05/2024 às 14:00 horas. Qualquer dúvida entre em contato com nossa central. Obrigado por contar conosco!\",\r\n\"dataNotificacao\":\"2024-05-24T14:30:00\",\r\n\"lida\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/notificacao/cadastro",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"notificacao",
+								"cadastro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Notificação",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net/api/notificacao/id/1",
+							"protocol": "https",
+							"host": [
+								"fiap-safecoleta-app-dev-argfcjc5gqbzfbdm",
+								"eastus2-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"notificacao",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "123456",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "vinicius",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
