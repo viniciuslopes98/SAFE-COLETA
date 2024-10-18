@@ -30,10 +30,10 @@ Para acessar os endpoints, basta adicionar o caminho do endpoint ao final desta 
 - MySQL: Banco de dados relacional.
 - Docker & Docker Compose: Gerenciamento de containers.
 - JUnit 5 & Mockito: Testes unitários.
-- Swagger (Springdoc OpenAPI): Documentação interativa da API.
 - Azure App Service.
 - Azure Database for MySQL.
 - GitHub Actions.
+- Postman
 
 # Instalação
 
