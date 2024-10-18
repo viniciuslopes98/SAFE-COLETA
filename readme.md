@@ -197,8 +197,8 @@ IMPORTANTE: Para cadastrar um agendamento, é necessário que um caminhão já e
 }
 
 ```
-- GET Consultar agendamento por ID `/api/agendamento/id/{id}`
-- GET Listar todos os agendamentos `/api/agendamento/agendamentos`
-- DELETE Excluir agendamento por ID `/api/agendamento/id/{id}`
-- PUT Atualizar agendamento por ID `/api/agendamento/id/{id}`
+- GET Consultar agendamento por ID `/api/agendamento/id/{id}`.
+- GET Listar todos os agendamentos `/api/agendamento/agendamentos`.
+- DELETE Excluir agendamento por ID `/api/agendamento/id/{id}`.
+- PUT Atualizar agendamento por ID `/api/agendamento/id/{id}`.
 
