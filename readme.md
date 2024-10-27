@@ -20,7 +20,6 @@ A URL base da API em produção é:
    ```sh
    https://fiap-safecoleta-app-dev-argfcjc5gqbzfbdm.eastus2-01.azurewebsites.net
    ```
-Para acessar os endpoints, basta adicionar o caminho do endpoint ao final desta URL.
 
 # Tecnologias Utilizadas
 
