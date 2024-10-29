@@ -2,6 +2,7 @@ package br.com.fiap.safecoleta.controller;
 
 import br.com.fiap.safecoleta.model.Caminhao;
 import br.com.fiap.safecoleta.service.CaminhaoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class CaminhaoController {
 
     @PostMapping("/cadastro")
     @ResponseStatus(HttpStatus.CREATED)
-    public Caminhao cadastroCaminhao(@RequestBody Caminhao caminhao) {
+    public Caminhao cadastroCaminhao(@RequestBody @Valid Caminhao caminhao) {
         return service.cadastroCaminhao(caminhao);
     }
 

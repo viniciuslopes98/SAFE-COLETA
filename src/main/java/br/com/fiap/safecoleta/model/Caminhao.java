@@ -1,6 +1,8 @@
 package br.com.fiap.safecoleta.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -17,6 +19,8 @@ public class Caminhao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Placa do caminhão é obrigatória!")
+    @Size(min = 7, max = 7, message = "O tamanho da Placa é inválido! Deve conter todos o 7 caracteres. ")
     @Column(name = "placa", nullable = false)
     private String placa;
 
