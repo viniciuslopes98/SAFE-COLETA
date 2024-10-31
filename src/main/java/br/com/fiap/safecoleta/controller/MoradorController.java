@@ -2,6 +2,7 @@ package br.com.fiap.safecoleta.controller;
 
 import br.com.fiap.safecoleta.model.Morador;
 import br.com.fiap.safecoleta.service.MoradorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class MoradorController {
 
     @PostMapping("/cadastro")
     @ResponseStatus(HttpStatus.CREATED)
-    public Morador cadastroMorador(@RequestBody Morador morador) {
+    public Morador cadastroMorador(@RequestBody @Valid Morador morador) {
         return service.cadastroMorador(morador);
     }
 
